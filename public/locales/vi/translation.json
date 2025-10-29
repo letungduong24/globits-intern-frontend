@@ -1,0 +1,564 @@
+﻿{
+  "web_site": "GLOBITS REACT SAMPLE",
+  "welcome": "CHÀO MỪNG ĐẾN VỚI GLOBITS",
+  "Dashboard": {
+    "dashboard": "Dashboard",
+    "AdministrativeUnit": "Đơn vị hành chính",
+    "login": "Login",
+    "logout": "Logout",
+    "profile": "Profile",
+    "analytics": {
+      "title": "Thống kê"
+    },
+    "chart": {
+      "amount": "Số lượng"
+    }
+  },
+  "validation": {
+    "code": "Chưa nhập mã!",
+    "value": "Chưa nhập giá trị!",
+    "required": "Đây là trường bắt buộc"
+  },
+  "color": {
+    "title": "Màu sắc",
+    "code": "Mã",
+    "value": "Giá trị",
+    "placehoder_code": "Nhập mã của màu sắc",
+    "placehoder_value": "Nhập giá trị của màu sắc"
+  },
+  "academic": {
+    "title": "Học Hàm Học Vị",
+    "code": "Mã",
+    "value": "Giá trị",
+    "name": "Tên",
+    "placehoder_code": "Nhập mã của học vị",
+    "placehoder_name": "Nhập tên của học vị"
+  },
+  "civilServantType": {
+    "title": "Phân loại công chức",
+    "code": "Mã",
+    "name": "Tên",
+    "languageKey": "Ngôn ngữ"
+  },
+  "contractType": {
+    "title": "Loại hợp đồng",
+    "code": "Mã",
+    "name": "Tên",
+    "languageKey": "Ngôn ngữ"
+  },
+  "employeeStatus": {
+    "title": "Trạng thái nhân viên",
+    "code": "Mã",
+    "name": "Tên",
+    "languageKey": "Ngôn ngữ"
+  },
+  "location": {
+    "title": "Vị trí",
+    "code": "Mã",
+    "name": "Tên",
+    "longitude": "Kinh độ",
+    "latitude": "Vĩ độ"
+  },
+  "reward": {
+    "title": "Hình thức khen thưởng",
+    "name": "Tên",
+    "languageKey": "Ngôn ngữ",
+    "code": "Mã",
+    "rewardType": "Loại khen thưởng",
+    "formal": "formal",
+    "description": "Mô tả",
+    "evaluateYear": "Đánh giá năm",
+    "evaluateLevel": "Đánh giá mức độ"
+  },
+  "ethnics": {
+    "title": "Dân tộc",
+    "code": "Mã",
+    "value": "Giá trị",
+    "name": "Tên",
+    "description": "Mô tả",
+    "placehoder_code": "Nhập mã của dân tộc",
+    "placehoder_name": "Nhập tên của dân tộc",
+    "placehoder_description": "Nhập mô tả của dân tộc"
+  },
+  "religion": {
+    "title": "Tôn giáo",
+    "code": "Mã",
+    "value": "Giá trị",
+    "name": "Tên",
+    "description": "Mô tả",
+    "placehoder_code": "Nhập mã của tôn giáo",
+    "placehoder_name": "Nhập tên của tôn giáo",
+    "placehoder_description": "Nhập mô tả của tôn giáo"
+  },
+  "country": {
+    "title": "Quốc gia",
+    "code": "Mã",
+    "value": "Giá trị",
+    "name": "Tên",
+    "description": "Mô tả",
+    "placehoder_code": "Nhập mã của quốc gia",
+    "placehoder_name": "Nhập tên của quốc gia",
+    "placehoder_description": "Nhập mô tả của quốc gia"
+  },
+  "staff": {
+    "title": "Thông tin nhân sự",
+    "code": "Mã",
+    "value": "Giá trị",
+    "name": "Tên",
+    "birthDate": "Ngày sinh",
+    "birthPlace": "Nơi sinh",
+    "description": "Mô tả",
+    "placehoder_code": "Nhập mã của quốc gia",
+    "placehoder_name": "Nhập tên của quốc gia",
+    "placehoder_description": "Nhập mô tả của quốc gia"
+  },
+  "position": {
+    "title": "Chức vụ",
+    "code": "Mã",
+    "value": "Giá trị",
+    "name": "Tên",
+    "type": "Loại chức vụ",
+    "description": "Mô tả",
+    "placehoder_code": "Nhập mã của chức vụ",
+    "placehoder_name": "Nhập tên của chức vụ",
+    "placehoder_description": "Nhập mô tả của chức vụ"
+  },
+  "human_resources_information": {
+    "title": "Quản lý thông tin NV",
+    "profile_information": "Thông tin hồ sơ NV",
+    "personal_information": "Thông tin cá nhân",
+    "working_process": "Quá trình chức vụ",
+    "civil_servant_rank_process": "Quá trình ngạch công chức",
+    "salary_developments": "Diễn biến lương",
+    "relatives": "Quan hệ thân nhân",
+    "political_organization": "Tổ chức chính trị",
+    "saveStaff": "Thêm",
+    "staffCode": "Mã nhân viên",
+    "name": "Họ và tên",
+    "code": "Mã nhân viên",
+    "birthDate": "Ngày sinh",
+    "birthPlace": "Nơi sinh",
+    "permanent_residence": "Hộ khẩu thường trú",
+    "accommodation_today": "Nơi ở hiện nay",
+    "identity_card_number": "Số CMTND",
+    "religion": "Tôn giáo",
+    "date_range": "Ngày cấp",
+    "license_place": "Nơi cấp",
+    "native_province": "Quê quán tỉnh",
+    "district": "Quận huyện",
+    "wards": "Nguyên quán",
+    "ethnic": "Dân tộc",
+    "phone_number": "Số điện thoại",
+    "marital_status": "Tình trạng hôn nhân",
+    "email": "Email",
+    "nationality": "Quốc tịch",
+    "contract_type": "Loại hợp đồng",
+    "day_contract": "Ngày hợp đồng",
+    "professional_titles": "Chức danh chuyên môn",
+    "assigned_work": "Công việc được giao",
+    "recruitment_date": "Ngày tuyển dụng",
+    "civil_servant_category": "Ngạch công chức",
+    "civil_servant_grade": "Bậc công chức",
+    "staff_type": "Loại công chức",
+    "highest_position": "Chức vụ cao nhất",
+    "position_decision_number": "Số quyết định chức vụ",
+    "current_agency_date": "Ngày về cơ quan hiện tại",
+    "occupation_when_recruiting": "Công việc hiện tại",
+    "allowance_coefficient": "Hệ số phụ cấp",
+    "salary": "Bậc lương",
+    "coefficients_salary": "Hệ số lương",
+    "currentWorkingStatus": "Trạng thái công việc hiện tại",
+    "social_insurance_number": "Số BHXH",
+    "fromDate": "Từ ngày",
+    "toDate": "Đến ngày",
+    "coefficient": "Hệ số",
+    "positionCode": "Mã chức vụ",
+    "positionName": "Tên chức vụ",
+    "current_position": "Chức vụ hiện tại",
+    "mainPosition": "Chức vụ chính",
+    "department": "Phòng ban",
+    "civilServantCategoryGradeCode": "Mã ngạch công chức",
+    "civilServantCategoryGradeName": "Tên ngạch công chức",
+    "current_civilServantCategoryGrade": "Ngạch công chức hiện tại",
+    "firstName": "Tên",
+    "lastName": "Họ",
+    "agreements": "Hợp đồng",
+    "family_relationships": "Quan hệ thân nhân",
+    "education_history": "Quá trình đào tạo",
+    "insurance_history": "Quá trình đóng BHXH",
+    "relationship": "Quan hệ",
+    "profession": "Nghề nghiệp",
+    "address": "Địa chỉ",
+    "description": "Mô tả",
+    "nameAgreement": "Tên hợp đồng",
+    "codeAgreement": "Mã hợp đồng",
+    "fileAgreement": "File",
+    "startDate": "Ngày bắt đầu",
+    "endDate": "Ngày kết thúc",
+    "signedDate": "Ngày thiết lập",
+    "agreementStatus": "Trạng thái",
+    "schoolName": "Tên trường",
+    "note": "Ghi chú",
+    "salaryCofficient": "Hệ số lương đóng bảo hiểm xã hội",
+    "insuranceSalary": "Mức lương đóng bảo hiểm xã hội",
+    "staffPercentage": "Tỷ lệ cá nhân đóng bảo hiểm xã hội",
+    "orgPercentage": "Tỷ lệ đơn vị đóng bảo hiểm xã hội",
+    "staffInsuranceAmount": "Số tiền cá nhân đóng",
+    "orgInsuranceAmount": "Số tiền đơn vị đóng",
+    "stafInsuranceHistory": "Quá trình đóng bảo hiển xã hội",
+    "labourAgreementType": "Loại thỏa thuận lao động",
+    "educationHistoryTitle": "Quá trình đào tạo",
+    "salary_history": "Quá trình lương",
+    "academic_level": "Trình độ học vấn",
+    "staffTypeCode": "Mã loại nhân viên",
+    "coefficientOverLevel": "Tỉ lệ vượt khung",
+    "percentage": "Tỉ lệ % thưởng",
+    "decisionDate": "Ngày quyết định tăng lương",
+    "decisionCode": "Số quyết định tăng lương",
+    "salaryIncrementType": "Loại tăng lương",
+    "jobCode": "Mã công việc",
+    "receivedDate": "Ngày nhận",
+    "rewardDate": "Ngày hưởng",
+    "politicalTheoryLevel": "Trình độ lí luận chính trị",
+    "stateManagementQualifications": "Trình độ quản lí nhà nước",
+    "educationalManagementQualifications": "Trình độ quản lí giáo duc",
+    "computerSkill": "Trình độ tin học",
+    "englishLevel": "Trình độ tiếng anh",
+    "graduationYear": "Năm tốt nghiệp",
+    "englishCertificate": "Chứng chỉ tiếng anh",
+    "point": "Điểm",
+    "yearOfCertification": "Năm cấp chứng chỉ",
+    "ortherLanguage": "Ngoại ngữ thành thạo nhất",
+    "ortherLanguageLevel": "Trình độ ngoại ngữ",
+    "ethnicLanguage": "Tiếng dân tộc",
+    "certificateEthnicLanguage": "Chứng chỉ tiếng dân tộc",
+    "exercise": "Là giáo viên thể dục",
+    "studying": "Hiện đang theo hoc",
+    "generalEducation": "Học vấn phổ thông",
+    "qualification": "Trình độ chuyên môn",
+    "specializedTraining": "Chuyên ngành đào tạo",
+    "formsOfTraining": "Hình thức đào tạo",
+    "trainingPlaces": "Nơi đào tạo",
+    "trainingCountry": "Nước đào tạo",
+    "academicRank": "Học hàm",
+    "degree": "Học vị",
+    "titleIsConferred": "Danh hiệu được phong",
+    "yearOfRecognition": "Năm công nhận",
+    "dateOfReceivingPosition": "Ngày nhận Chức vụ cao nhất",
+    "dateOfReceivingAllowance": "Ngày hưởng phụ cấp",
+    "startTime": "Thời gian bắt đầu",
+    "endTime": "Thời gian kết thúc",
+    "salaryStartDate": "Ngày hưởng bậc lương hiện tại",
+    "status": "Trạng Thái Nhân Viên"
+  },
+  "department": {
+    "title": "Danh mục phòng ban",
+    "name": "Tên phòng ban",
+    "code": "Mã ",
+    "saveUpdate": "Thêm mới",
+    "search": "Nhập từ khóa",
+    "displayOrder": "Mã hiển thị",
+    "foundedDate": "Ngày",
+    "foundedNumber": "Quyết định số",
+    "function": "Chức năng",
+    "description": "Mô tả",
+    "industryBlock": "Khối ngành",
+    "parent": "Đơn vị trực thuộc",
+    "warning_parent": "Không thể chọn phòng ban này làm phòng ban cha",
+    "noti_use": "Phòng ban đã được sử dụng không thể xóa"
+  },
+  "civilServantCategory": {
+    "title": "Mã ngạch công chức",
+    "code": "Mã",
+    "value": "Giá trị",
+    "name": "Tên"
+  },
+  "educationDegree": {
+    "title": "Trình độ học vấn",
+    "code": "Mã",
+    "value": "Giá trị",
+    "name": "Tên"
+  },
+  "educationType": {
+    "title": "Loại hình đào tạo",
+    "code": "Mã",
+    "name": "Tên",
+    "nameEng": "Tên tiếng Anh",
+    "description": "Mô tả"
+  },
+  "speciality": {
+    "title": "Chuyên ngành",
+    "code": "Mã",
+    "name": "Tên",
+    "nameEng": "Tên tiếng Anh",
+    "description": "Mô tả"
+  },
+  "professionalDegree": {
+    "title": "Trình độ chuyên môn",
+    "code": "Mã",
+    "name": "Tên",
+    "nameEng": "Tên tiếng Anh",
+    "description": "Mô tả"
+  },
+  "informaticDegree": {
+    "title": "Trình độ tin học",
+    "code": "Mã",
+    "name": "Tên",
+    "nameEng": "Tên tiếng Anh",
+    "description": "Mô tả"
+  },
+  
+  "navigation": {
+    "dashboard": "Tổng quan",
+    "color": "Màu sắc",
+    "academic": "Học hàm học Vị",
+    "position_title": "Chức vụ",
+    "ethnics": "Dân tộc",
+    "country": "Quốc gia",
+    "religion": "Tôn giáo",
+    "administrative_unit": "Đơn vị hành chính",
+    "informaticDegree":"Trình độ tin học",
+    "professionalDegree":"Trình độ chuyên môn",
+    "department": "Phòng ban",
+    "HumanResourcesInformation": "Nhân sự",
+    "civilServantCategory": "Mã ngạch công chức",
+    "staff": "Thông tin nhân sự",
+    "directory": "Danh mục",
+    "health_unit": "Đơn vị y tế",
+    "patient": "Danh sách bệnh nhân trên hệ thống",
+    "certificate": "Chứng chỉ",
+    "occupation": "Nghề nghiệp",
+    "ethnicity": "Dân tộc",
+    "civilServantType": "Phân loại công chức",
+    "reward": "Hình thức khen thưởng",
+    "contractType": "Loại hợp đồng",
+    "employeeStatus": "Tình trạng nhân viên",
+    "location": "Vị trí",
+    "discipline": "Kỷ luật",
+    "profession": "Nghề nghiệp",
+    "grade": "Bậc công chức",
+    "educationDegree": "Trình độ học vấn",
+    "educationType": "Loại hình đào tạo",
+    "manage": {
+      "title": "Quản trị",
+      "user": "Quản trị người dùng",
+      "role": "Quản trị vai trò",
+      "personal_info": "Thông tin cá nhân",
+      "change_password": "Thay đổi mật khẩu",
+      "org_info": "Thông tin đơn vị",
+      "profile": "Thông tin cá nhân",
+      "list_user": "Danh sách nhân viên"
+    },
+    "list": "Danh sách"
+  },
+  "general": {
+    "you_are_here": "Bạn đang ở đây:",
+    "home": "Trang chủ",
+    "category": "Danh mục",
+    "button": {
+      "add": "Thêm mới",
+      "delete": "Xóa",
+      "save": "Lưu",
+      "cancel": "Hủy",
+      "edit": "Chỉnh sửa",
+      "select": "Lựa chọn",
+      "filter": "Bộ lọc",
+      "search": "Tìm kiếm",
+      "back": "Quay lại",
+      "update": "Cập nhật",
+      "importExcel": "Nhập Excel",
+      "select_file": "Chọn tệp",
+      "size": "Kích thước",
+      "file_name": "Tên tệp",
+      "close": "Đóng",
+      "remove": "Xoá",
+      "upload": "Tải lên",
+      "send": "Gửi",
+      "deselect": "Bỏ chọn"
+    },
+    "popup": {
+      "select": "Chọn",
+      "code": "Mã",
+      "name": "Tên"
+    },
+    "no": "STT",
+    "action": "Thao tác",
+    "enter_search": "Nhập từ khóa tìm kiếm",
+    "rows_per_page": "Số hàng mỗi trang:",
+    "required": "Đây là trường bắt buộc",
+    "language": "Ngôn ngữ",
+    "emptyDataMessageTable": "Không có dữ liệu",
+    "empty_file": "Trống",
+    "total_rows": "Tổng số bản ghi:",
+    "goto_page": "Đi tới trang:",
+    "to_homepage": "Đi đến trang chủ"
+  },
+  "gender": {
+    "transgender-to-female": "Chuyển giới nữ",
+    "transgender-to-male": "Chuyển giới nam",
+    "non-binary": "Lưỡng tính",
+    "male": "Nam",
+    "female": "Nữ",
+    "other": "Khác",
+    "not-disclosed": "Không tiết lộ"
+  },
+  "certificate": {
+    "title": "Chứng chỉ",
+    "code": "Mã chứng chỉ",
+    "name": "Tên chứng chỉ",
+    "type": "Loại chứng chỉ"
+  },
+  "grade": {
+    "title": "Bậc công chức",
+    "grade": "Cấp bậc",
+    "code": "Mã",
+    "name": "Tên",
+    "nextGradeId": "Bậc tiếp theo",
+    "maxGrade": "Bậc lớn nhất",
+    "salaryCoefficient": "Hệ số lương",
+    "description": "Mô tả"
+  },
+  "discipline": {
+    "title": "Kỷ luật",
+    "code": "Mã",
+    "name": "Tên",
+    "level": "Cấp độ",
+    "languageKey": "Ngôn ngữ",
+    "disciplineType": "Loại kỷ luật",
+    "formal": "Hình thức kỷ luật",
+    "evaluateYear": "Đánh giá năm",
+    "description": "Mô tả"
+  },
+  "toast": {
+    "error": "Có lỗi xảy ra, vui lòng thử lại!",
+    "delete_success": "Đã xóa thành công!",
+    "please_select": "Hãy chọn ít nhất 1 mục để xóa!",
+    "duplicate_code": "Mã đã được sử dụng!",
+    "update_success": "Cập nhật thành công!",
+    "add_success": "Thêm mới thành công!",
+    "user_exist": "Tên đăng nhập đã tồn tại!",
+    "change_password_success": "Đã thay đổi mật khẩu!",
+    "change_password_failure": "Có lỗi khi thay đổi mật khẩu!"
+  },
+  "administrative_unit": {
+    "title": "Đơn vị hành chính",
+    "code": "Mã",
+    "name": "Tên",
+    "description": "Mô tả",
+    "parent": "Đơn vị quản lý",
+    "select": "Lựa chọn đơn vị"
+  },
+  "ethnicity": {
+    "title": "Dân tộc",
+    "code": "Mã",
+    "name": "Tên",
+    "description": "Mô tả"
+  },
+  "profession": {
+    "title": "Nghề nghiệp",
+    "code": "Mã",
+    "name": "Tên",
+    "description": "Mô tả"
+  },
+  "occupation": {
+    "title": "Nghề nghiệp",
+    "code": "Mã",
+    "name": "Tên",
+    "description": "Mô tả"
+  },
+  "risk_behavior": {
+    "title": "Hành vi nguy cơ",
+    "code": "Mã",
+    "name": "Tên",
+    "description": "Mô tả"
+  },
+  "risk_population": {
+    "title": "Đối tượng nguy cơ",
+    "code": "Mã",
+    "name": "Tên",
+    "description": "Mô tả"
+  },
+  "transmission_route": {
+    "title": "Đường lây nhiễm",
+    "code": "Mã",
+    "name": "Tên",
+    "description": "Mô tả"
+  },
+  "regimen": {
+    "title": "Phác đồ điều trị",
+    "regimen_line": "Bậc phác đồ",
+    "regimen_name": "Tên phác đồ",
+    "start_date": "Ngày bắt đầu",
+    "end_date": "Ngày kết thúc",
+    "end_reason": "Lý do kết thúc",
+    "select": "Lựa chọn phác đồ"
+  },
+  "confirm_test": {
+    "title": "XNKĐ",
+    "list": "Danh sách XNKĐ"
+  },
+
+  "confirm_dialog": {
+    "delete": {
+      "title": "Xác nhận xóa",
+      "text": "Bạn có chắc chắn muốn xóa bản ghi này?",
+      "agree": "Xác nhận",
+      "cancel": "Hủy"
+    },
+    "delete_list": {
+      "title": "Xác nhận xóa",
+      "text": "Bạn có chắc chắn muốn xóa những bản ghi này?",
+      "agree": "Xác nhận",
+      "cancel": "Hủy"
+    },
+    "confirm_close": {
+      "title": "Xác nhận huỷ",
+      "text": "Bạn có chắc chắn huỷ?",
+      "agree": "Xác nhận",
+      "cancel": "Hủy"
+    }
+  },
+
+  "sign_in": {
+    "title": "Đăng nhập"
+  },
+  "sign_up": {
+    "title": "Đăng ký",
+    "title_form": "Đăng ký tài khoản",
+    "info_login": "Thông tin đăng nhập"
+  },
+  "user": {
+    "title": "Tài khoản",
+    "person_info": "Thông tin người dùng",
+    "display_name": "Tên hiển thị",
+    "gender": "Giới tính",
+    "username": "Tên đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "re_password": "Nhập lại mật khẩu",
+    "current_password": "Mật khẩu hiện tại",
+    "new_password": "Mật khẩu mới",
+    "change_pass": "Đổi mật khẩu",
+    "remember_me": "Lưu tài khoản",
+    "password_match_message": "Mật khẩu không chính xác",
+    "password_message": "Mật khẩu quá ngắn",
+    "active": "Kích hoạt",
+    "role": {
+      "title": "Vai trò",
+      "name": "Tên",
+      "authority": "Quyền",
+      "createdBy": "Người tạo"
+    },
+    "org": {
+      "title": "Đơn vị y tế",
+      "type": "Loại Đơn Vị"
+    }
+  },
+  "role": {
+    "title": "Vai trò",
+    "name": "Tên",
+    "authority": "Quyền",
+    "createdBy": "Người tạo"
+  },
+  "tool_tip": {}
+}

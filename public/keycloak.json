@@ -1,0 +1,7 @@
+{
+  "realm": "HrPlatform",
+  "auth-server-url": "http://localhost:8080",
+  "ssl-required": "none",
+  "resource": "HrClient",
+  "public-client": true
+}
