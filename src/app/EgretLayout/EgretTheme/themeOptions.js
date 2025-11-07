@@ -50,12 +50,12 @@ const themeOptions = {
     MuiTableCell: {
       head: {
         fontSize: "13px",
-        padding: "12px 0px"
+        padding: "12px 12px"
       },
       root: {
         fontSize: "14px",
         whiteSpace: "pre-wrap",
-        padding: "8px 0px"
+        padding: "12px 12px"
       }
     },
 

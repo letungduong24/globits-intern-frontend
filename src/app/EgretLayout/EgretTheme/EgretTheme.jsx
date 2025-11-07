@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { MuiThemeProvider } from "@material-ui/core";
+import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { setLayoutSettings } from "app/redux/actions/LayoutActions";
@@ -24,6 +24,7 @@ class EgretTheme extends Component {
     // activeTheme.direction = settings.direction;
     return (
       <MuiThemeProvider theme={activeTheme}>
+        <CssBaseline /> 
         <Helmet>
           <style>
             {`
