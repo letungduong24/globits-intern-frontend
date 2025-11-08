@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { observer } from 'mobx-react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { Button, ButtonGroup } from '@material-ui/core';
+import { useStore } from '../../../stores';
 
 const useStyles = makeStyles({
   table: {
@@ -18,17 +20,17 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CountryTable({
-  countries,
-  page,
-  pageSize,
-  totalElements,
-  handleChangePage,
-  handleChangeRowsPerPage,
-  handleDelete,
-  handleEdit
-}) {
+const CountryTable = observer(() => {
   const classes = useStyles();
+  const { countryStore } = useStore();
+
+  const handleChangePage = (event, newPage) => {
+    countryStore.setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    countryStore.setPageSize(parseInt(event.target.value, 10));
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -42,8 +44,8 @@ export default function CountryTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {countries.length > 0 ? (
-            countries.map((country) => (
+          {countryStore.countries.length > 0 ? (
+            countryStore.countries.map((country) => (
               <TableRow key={country.id}>
                 <TableCell component="th" scope="row">
                   {country.code}
@@ -52,8 +54,8 @@ export default function CountryTable({
                 <TableCell align="left">{country.description}</TableCell>
                 <TableCell align="left">
                   <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                    <Button onClick={() => handleEdit(country)}><EditIcon /></Button>
-                    <Button onClick={() => handleDelete(country.id)}><DeleteIcon /></Button>
+                    <Button onClick={() => countryStore.handleEdit(country)}><EditIcon /></Button>
+                    <Button onClick={() => countryStore.handleDelete(country.id)}><DeleteIcon /></Button>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>
@@ -70,9 +72,9 @@ export default function CountryTable({
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 50]}
         component="div"
-        count={totalElements}
-        rowsPerPage={pageSize}
-        page={page}
+        count={countryStore.totalElements}
+        rowsPerPage={countryStore.pageSize}
+        page={countryStore.page}
         backIconButtonProps={{
           'aria-label': 'previous page',
         }}
@@ -84,4 +86,6 @@ export default function CountryTable({
       />
     </TableContainer>
   );
-}
+});
+
+export default CountryTable;

@@ -12,14 +12,6 @@ const CountryIndex = observer(() => {
         countryStore.loadCountries();
     }, [countryStore.page, countryStore.pageSize, countryStore.keyword]);
 
-    const handleChangePage = (event, newPage) => {
-        countryStore.setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        countryStore.setPageSize(parseInt(event.target.value, 10));
-    };
-
     const handleSearchChange = (event) => {
         countryStore.setKeyword(event.target.value);
     };
@@ -42,16 +34,7 @@ const CountryIndex = observer(() => {
                     </Button>
                 </Box>
             </Box>
-            <CountryTable 
-                countries={countryStore.countries}
-                page={countryStore.page}
-                pageSize={countryStore.pageSize}
-                totalElements={countryStore.totalElements}
-                handleChangePage={handleChangePage}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-                handleDelete={countryStore.handleDelete}
-                handleEdit={countryStore.handleEdit}
-            />
+            <CountryTable />
             <CountryModal />
         </div>
     );
