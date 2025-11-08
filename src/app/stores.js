@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
-// import CountryStore from "./views/Country/CountryStore";
+import CountryStore from "./views/Country/CountryStore";
 
 export const store = {
-  // countryStore: new CountryStore(),
+  countryStore: new CountryStore(),
 };
 
 export const StoreContext = createContext(store);

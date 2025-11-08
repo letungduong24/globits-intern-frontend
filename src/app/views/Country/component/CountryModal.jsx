@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -8,8 +9,7 @@ import Button from '@material-ui/core/Button';
 import { Form, Formik } from 'formik';
 import GlobitsTextField from '../../../common/form/GlobitsTextField';
 import countrySchema from '../schema/countrySchema';
-import { createCountry, editCountry } from '../CountryService';
-import { toast } from 'react-toastify';
+import { useStore } from '../../../stores';
 
 const useStyles = makeStyles((theme) => ({
   formField: {
@@ -17,21 +17,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CountryModal({handleClose, open, onSuccess, currentCountry}) {  
+const CountryModal = observer(() => {  
   const classes = useStyles();
-  const isEditMode = Boolean(currentCountry);
+  const { countryStore } = useStore();
+  const isEditMode = Boolean(countryStore.currentCountry);
 
   const initialValues = {
-    name: currentCountry?.name || "",
-    code: currentCountry?.code || "",
-    description: currentCountry?.description || "",
-    id: currentCountry?.id || null
+    name: countryStore.currentCountry?.name || "",
+    code: countryStore.currentCountry?.code || "",
+    description: countryStore.currentCountry?.description || "",
+    id: countryStore.currentCountry?.id || null
   };
 
   return (
     <Dialog
-      open={open}
-      onClose={handleClose}
+      open={countryStore.open}
+      onClose={countryStore.handleClose}
       aria-labelledby="country-dialog-title"
       aria-describedby="country-dialog-description"
       maxWidth="sm"
@@ -41,29 +42,17 @@ export default function CountryModal({handleClose, open, onSuccess, currentCount
         {isEditMode ? 'Edit Country' : 'Create Country'}
       </DialogTitle>
       <Formik
-        key={open ? (currentCountry?.id || 'new') : 'closed'}
+        key={countryStore.open ? (countryStore.currentCountry?.id || 'new') : 'closed'}
         initialValues={initialValues}
         enableReinitialize={true}
         validationSchema={countrySchema}
-        onSubmit={(values, { resetForm }) => {
-            const submitPromise = isEditMode 
-              ? editCountry(values)
-              : createCountry(values);
-            
-            submitPromise
-            .then((res) => {
-                console.log(`Country ${isEditMode ? 'updated' : 'created'} successfully:`, res.data);
-                toast.success(isEditMode ? "Cập nhật thành công!" : "Tạo mới thành công!");
-                resetForm();
-                handleClose();
-                if (onSuccess) {
-                  onSuccess();
-                }
-            })
-            .catch((error) => {
-                console.error(`Error ${isEditMode ? 'updating' : 'creating'} country:`, error);
-                toast.error(isEditMode ? "Có lỗi khi cập nhật!" : "Có lỗi khi tạo mới!");
-            });
+        onSubmit={async (values, { resetForm }) => {
+            resetForm();
+            if (isEditMode) {
+                await countryStore.handleUpdate(values);
+            } else {
+                await countryStore.handleCreate(values);
+            }
         }}
       >
         {({ handleSubmit }) => (
@@ -91,7 +80,7 @@ export default function CountryModal({handleClose, open, onSuccess, currentCount
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose} color="secondary">
+              <Button onClick={countryStore.handleClose} color="secondary">
                 Cancel
               </Button>
               <Button 
@@ -108,4 +97,6 @@ export default function CountryModal({handleClose, open, onSuccess, currentCount
       </Formik>
     </Dialog>
   );
-}
+});
+
+export default CountryModal;

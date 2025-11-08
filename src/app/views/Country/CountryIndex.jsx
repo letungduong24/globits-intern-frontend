@@ -1,96 +1,28 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { deleteCountry, pagingCountries } from './CountryService';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react';
 import CountryTable from './component/CountryTable';
 import { Box, Button, TextField } from '@material-ui/core';
 import CountryModal from './component/CountryModal';
-import { toast } from 'react-toastify';
+import { useStore } from '../../stores';
 
-export default function CountryIndex() {
-    const [countries, setCountries] = useState([]);
-    const [open, setOpen] = React.useState(false);
-    const [page, setPage] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
-    const [totalElements, setTotalElements] = useState(0);
-    const [currentCountry, setCurrentCountry] = useState(null);
-    const [keyword, setKeyword] = useState("");
-    const [searchKeyword, setSearchKeyword] = useState("");
-    const searchTimeoutRef = useRef(null);
-
-    const handleDelete = async (id) => {
-        try {
-            await deleteCountry(id);
-            toast.success("Xóa thành công!");
-            await loadCountries(page, pageSize, searchKeyword);
-        } catch (error) {
-            console.error("Error deleting country:", error);
-            toast.error("Có lỗi khi xóa!");
-        }
-    }
-
-    const handleEdit = (country) => {
-        setCurrentCountry(country);
-        setOpen(true);
-    }
-
-    const handleOpen = () => {
-        setCurrentCountry(null);
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setCurrentCountry(null);
-        setOpen(false);
-    };
+const CountryIndex = observer(() => {
+    const { countryStore } = useStore();
 
     useEffect(() => {
-        loadCountries(page, pageSize, searchKeyword);
-    }, [page, pageSize, searchKeyword]);
+        countryStore.loadCountries();
+    }, [countryStore.page, countryStore.pageSize, countryStore.keyword]);
 
     const handleChangePage = (event, newPage) => {
-        setPage(newPage);
+        countryStore.setPage(newPage);
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setPageSize(parseInt(event.target.value, 10));
-        setPage(0);
+        countryStore.setPageSize(parseInt(event.target.value, 10));
     };
 
-    async function loadCountries(pageIndex, size, searchKeyword = "") {
-        const searchObject = {
-            pageIndex: pageIndex,
-            pageSize: size,
-        }
-        if (searchKeyword && searchKeyword.trim() !== "") {
-            searchObject.keyword = searchKeyword.trim();
-        }
-        const response = await pagingCountries(searchObject);
-        const content = response?.data?.content || [];
-        
-        setCountries(Array.isArray(content) ? [...content] : []);
-        setTotalElements(response?.data?.totalElements || 0);
-    }
-
     const handleSearchChange = (event) => {
-        const value = event.target.value;
-        setKeyword(value);
-        setPage(0); 
-        
-        if (searchTimeoutRef.current) {
-            clearTimeout(searchTimeoutRef.current);
-        }
-        searchTimeoutRef.current = setTimeout(() => {
-            setSearchKeyword(value);
-        }, 500);
-    }
-
-    // Cleanup timeout khi component unmount
-    useEffect(() => {
-        return () => {
-            if (searchTimeoutRef.current) {
-                clearTimeout(searchTimeoutRef.current);
-            }
-        };
-    }, []);
+        countryStore.setKeyword(event.target.value);
+    };
 
     return (
         <div className='p-10 w-full'>
@@ -101,32 +33,28 @@ export default function CountryIndex() {
                         placeholder="Tìm kiếm..."
                         variant="outlined"
                         size="small"
-                        value={keyword}
+                        value={countryStore.keyword}
                         onChange={handleSearchChange}
                         style={{ width: 300 }}
                     />
-                    <Button onClick={handleOpen} className='block' variant="contained" color="primary">
+                    <Button onClick={countryStore.handleOpen} className='block' variant="contained" color="primary">
                         Add Country
                     </Button>
                 </Box>
             </Box>
             <CountryTable 
-                countries={countries}
-                page={page}
-                pageSize={pageSize}
-                totalElements={totalElements}
+                countries={countryStore.countries}
+                page={countryStore.page}
+                pageSize={countryStore.pageSize}
+                totalElements={countryStore.totalElements}
                 handleChangePage={handleChangePage}
                 handleChangeRowsPerPage={handleChangeRowsPerPage}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
+                handleDelete={countryStore.handleDelete}
+                handleEdit={countryStore.handleEdit}
             />
-            <CountryModal 
-                open={open} 
-                handleClose={handleClose} 
-                handleOpen={handleOpen}
-                onSuccess={() => loadCountries(page, pageSize, searchKeyword)}
-                currentCountry={currentCountry}
-            />
+            <CountryModal />
         </div>
-    )
-}
+    );
+});
+
+export default CountryIndex;
