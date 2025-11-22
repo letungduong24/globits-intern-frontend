@@ -8,6 +8,7 @@ import ConstantList from "./appConfig";
 import countryRoutes from "./views/Country/CountryRoutes";
 import ethnicsRoutes from "./views/Ethnics/EthnicsRoutes";
 import religionRoutes from "./views/Religion/ReligionRoutes";
+import departmentRoutes from "./views/Department/DepartmentRoutes";
 
 const redirectRoute = [
   {
@@ -32,6 +33,7 @@ const routes = [
   ...countryRoutes,
   ...ethnicsRoutes,
   ...religionRoutes,
+  ...departmentRoutes,
   ...errorRoute,
 ];
 

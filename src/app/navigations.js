@@ -30,7 +30,12 @@ export const navigations = [
         icon: "remove",
         isVisible: true,
       },
-      
+      {
+        name: "Phòng ban",
+        path: ConstantList.ROOT_PATH + "category/department",
+        icon: "remove",
+        isVisible: true,
+      },
     ],
   },
   
