@@ -54,52 +54,35 @@ const DepartmentTable = observer(() => {
   }, [departmentStore.departments]);
 
   useEffect(() => {
-    // Build tree structure
-    const buildTree = (items) => {
-      const itemMap = new Map();
-      const roots = [];
-
-      // First pass: create map of all items
-      items.forEach((item) => {
-        itemMap.set(item.id, { ...item, children: [] });
-      });
-
-      // Second pass: build tree
-      items.forEach((item) => {
-        const node = itemMap.get(item.id);
-        // Check both parentId and parent.id (handle both cases from backend)
-        let parentId = null;
-        if (item.parentId) {
-          parentId = item.parentId;
-        } else if (item.parent) {
-          parentId = typeof item.parent === 'object' ? item.parent.id : item.parent;
-        }
-        
-        if (parentId && itemMap.has(parentId)) {
-          const parent = itemMap.get(parentId);
-          parent.children.push(node);
-        } else {
-          roots.push(node);
-        }
-      });
-
+    // Backend đã trả về tree structure với children array
+    // Chỉ cần tìm root nodes và flatten tree theo expanded state
+    const processTreeData = (items) => {
+      // Tìm root nodes (parent = null)
+      const rootNodes = items.filter((item) => !item.parent || item.parent === null);
+      
       // Flatten tree for display
       const flattenTree = (nodes, level = 0) => {
         const result = [];
         nodes.forEach((node) => {
-          result.push({ ...node, level, hasChildren: node.children.length > 0 });
-          if (expandedRows.has(node.id) && node.children.length > 0) {
-            result.push(...flattenTree(node.children, level + 1));
+          // Sử dụng children từ backend (nếu có) hoặc mảng rỗng
+          const children = node.children || [];
+          const hasChildren = children.length > 0;
+          
+          result.push({ ...node, level, hasChildren });
+          
+          // Nếu node được expand và có children, thêm children vào
+          if (expandedRows.has(node.id) && hasChildren) {
+            result.push(...flattenTree(children, level + 1));
           }
         });
         return result;
       };
 
-      return flattenTree(roots);
+      return flattenTree(rootNodes);
     };
 
     if (departmentStore.departments.length > 0) {
-      const flattened = buildTree(departmentStore.departments);
+      const flattened = processTreeData(departmentStore.departments);
       setTreeData(flattened);
     } else {
       setTreeData([]);
