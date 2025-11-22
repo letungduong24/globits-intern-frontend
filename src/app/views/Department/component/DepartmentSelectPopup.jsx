@@ -8,20 +8,8 @@ import {
   Button,
   TextField,
   makeStyles,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TablePagination,
-  Paper,
-  Radio,
-  IconButton,
-  CircularProgress,
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MaterialTable from 'material-table';
 import { useStore } from '../../../stores';
 import { pagingAllDepartments } from '../DepartmentService';
 
@@ -32,27 +20,6 @@ const useStyles = makeStyles((theme) => ({
   },
   searchField: {
     marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 650,
-  },
-  treeRow: {
-    '&:hover': {
-      backgroundColor: '#f5f5f5',
-    },
-  },
-  childRow: {
-    backgroundColor: '#fafafa',
-  },
-  expandIcon: {
-    cursor: 'pointer',
-    padding: 4,
-  },
-  loadingContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: 200,
   },
 }));
 
@@ -66,8 +33,6 @@ const DepartmentSelectPopup = observer(({ open, onClose, onSelect, excludeId }) 
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [totalElements, setTotalElements] = useState(0);
-  const [expandedRows, setExpandedRows] = useState(new Set());
-  const [treeData, setTreeData] = useState([]);
 
   useEffect(() => {
     if (open) {
@@ -75,50 +40,28 @@ const DepartmentSelectPopup = observer(({ open, onClose, onSelect, excludeId }) 
     }
   }, [open, page, pageSize, searchKeyword]);
 
-  useEffect(() => {
-    // Build tree structure
-    const buildTree = (items) => {
-      const itemMap = new Map();
-      const roots = [];
-
-      // First pass: create map of all items
-      items.forEach((item) => {
-        itemMap.set(item.id, { ...item, children: [] });
-      });
-
-      // Second pass: build tree
-      items.forEach((item) => {
-        const node = itemMap.get(item.id);
-        if (item.parentId && itemMap.has(item.parentId)) {
-          const parent = itemMap.get(item.parentId);
-          parent.children.push(node);
-        } else {
-          roots.push(node);
+  // Flatten tree structure từ backend thành flat list cho Material Table
+  const flattenTreeData = (items) => {
+    const result = [];
+    
+    const flatten = (nodes) => {
+      nodes.forEach((node) => {
+        result.push({
+          ...node,
+          parentId: node.parentId || (node.parent && node.parent.id) || null,
+        });
+        
+        if (node.children && node.children.length > 0) {
+          flatten(node.children);
         }
       });
-
-      // Flatten tree for display
-      const flattenTree = (nodes, level = 0) => {
-        const result = [];
-        nodes.forEach((node) => {
-          result.push({ ...node, level, hasChildren: node.children.length > 0 });
-          if (expandedRows.has(node.id) && node.children.length > 0) {
-            result.push(...flattenTree(node.children, level + 1));
-          }
-        });
-        return result;
-      };
-
-      return flattenTree(roots);
     };
-
-    if (departments.length > 0) {
-      const flattened = buildTree(departments);
-      setTreeData(flattened);
-    } else {
-      setTreeData([]);
-    }
-  }, [departments, expandedRows]);
+    
+    const rootNodes = items.filter((item) => !item.parent || item.parent === null);
+    flatten(rootNodes);
+    
+    return result;
+  };
 
   const loadDepartments = async () => {
     setLoading(true);
@@ -160,28 +103,29 @@ const DepartmentSelectPopup = observer(({ open, onClose, onSelect, excludeId }) 
     setSelectedDepartment(null);
     setSearchKeyword('');
     setPage(0);
-    setExpandedRows(new Set());
     onClose();
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  const columns = [
+    {
+      title: 'Mã',
+      field: 'code',
+      width: 150,
+    },
+    {
+      title: 'Tên phòng ban',
+      field: 'name',
+      width: 250,
+    },
+    {
+      title: 'Mô tả',
+      field: 'description',
+      width: 300,
+    },
+  ];
 
-  const handleChangeRowsPerPage = (event) => {
-    setPageSize(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const toggleExpand = (id) => {
-    const newExpanded = new Set(expandedRows);
-    if (newExpanded.has(id)) {
-      newExpanded.delete(id);
-    } else {
-      newExpanded.add(id);
-    }
-    setExpandedRows(newExpanded);
-  };
+  // Flatten tree data
+  const flatData = departments.length > 0 ? flattenTreeData(departments) : [];
 
   return (
     <Dialog
@@ -207,95 +151,66 @@ const DepartmentSelectPopup = observer(({ open, onClose, onSelect, excludeId }) 
           }}
           className={classes.searchField}
         />
-        <TableContainer component={Paper} style={{ maxHeight: 300 }}>
-          <Table className={classes.table} aria-label="department select table" stickyHeader>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">Chọn</TableCell>
-                <TableCell>Mã</TableCell>
-                <TableCell align="left">Tên phòng ban</TableCell>
-                <TableCell align="left">Mô tả</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {loading ? (
-                <TableRow>
-                  <TableCell colSpan={4} align="center">
-                    <div className={classes.loadingContainer}>
-                      <CircularProgress size={40} />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ) : treeData.length > 0 ? (
-                treeData.map((department) => (
-                  <TableRow
-                    key={department.id}
-                    className={department.level > 0 ? classes.childRow : classes.treeRow}
-                    hover
-                  >
-                    <TableCell padding="checkbox">
-                      <Radio
-                        checked={selectedDepartment?.id === department.id}
-                        onChange={() => setSelectedDepartment(department)}
-                        color="primary"
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      style={{ paddingLeft: `${department.level * 24 + 16}px` }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        {department.hasChildren ? (
-                          <IconButton
-                            size="small"
-                            onClick={() => toggleExpand(department.id)}
-                            className={classes.expandIcon}
-                          >
-                            {expandedRows.has(department.id) ? (
-                              <ExpandMoreIcon fontSize="small" />
-                            ) : (
-                              <ChevronRightIcon fontSize="small" />
-                            )}
-                          </IconButton>
-                        ) : (
-                          <span style={{ width: 32, display: 'inline-block' }} />
-                        )}
-                        {department.code}
-                      </div>
-                    </TableCell>
-                    <TableCell align="left">{department.name}</TableCell>
-                    <TableCell align="left">{department.description || '-'}</TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={4} align="center">
-                    Không có dữ liệu
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <MaterialTable
+          columns={columns}
+          data={flatData}
+          parentChildData={(row, rows) => {
+            if (row.parentId) {
+              return rows.find((a) => a.id === row.parentId);
+            }
+            return null;
+          }}
+          onSelectionChange={(rows) => {
+            if (rows && rows.length > 0) {
+              setSelectedDepartment(rows[0]);
+            } else {
+              setSelectedDepartment(null);
+            }
+          }}
+          options={{
+            selection: true,
+            selectionProps: (rowData) => ({
+              checked: selectedDepartment?.id === rowData.id,
+            }),
+            paging: true,
+            pageSize: pageSize,
+            pageSizeOptions: [5, 10, 25, 50],
+            search: false,
+            toolbar: false,
+            headerStyle: {
+              backgroundColor: '#e3f2fd',
+            },
+            maxBodyHeight: 300,
+            rowStyle: (rowData) => {
+              if (rowData.parentId) {
+                return { backgroundColor: '#fafafa' };
+              }
+              return {};
+            },
+          }}
+          localization={{
+            body: {
+              emptyDataSourceMessage: 'Không có dữ liệu',
+            },
+            pagination: {
+              labelRowsSelect: 'Số hàng mỗi trang',
+              labelDisplayedRows: '{from}-{to} của {count}',
+              firstTooltip: 'Trang đầu',
+              previousTooltip: 'Trang trước',
+              nextTooltip: 'Trang sau',
+              lastTooltip: 'Trang cuối',
+            },
+          }}
+          onChangePage={(newPage) => setPage(newPage)}
+          onChangeRowsPerPage={(newPageSize) => {
+            setPageSize(newPageSize);
+            setPage(0);
+          }}
+          isLoading={loading}
+        />
         <div style={{ marginTop: 10, fontSize: '0.875rem' }}>
           Tổng số bản ghi: {totalElements}
         </div>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 50]}
-          component="div"
-          count={totalElements}
-          rowsPerPage={pageSize}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'previous page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'next page',
-          }}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="secondary" variant="outlined">
